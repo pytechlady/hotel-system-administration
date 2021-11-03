@@ -12,6 +12,6 @@ class Hotel(Model):
         #   - Assign values from the record dictionary to the corresponding model attributes
 
         instance = cls()
-
-        # Add your implementation here ...
-        pass
+        instance._id = record["_id"]
+        instance.name = record["name"]
+        return instance

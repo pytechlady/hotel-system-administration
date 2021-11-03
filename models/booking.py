@@ -17,7 +17,11 @@ class Booking(Model):
         instance = cls()
 
         # Add your implementation here ...
-        pass
+        instance._id = record["_id"]
+        instance.room_id = record["room_id"]
+        instance.name = record["name"]
+        instance.paid = record["paid"]
+
     
     def room(self, db):
         # Requirements:
@@ -27,4 +31,8 @@ class Booking(Model):
         #   - Return a Room model instance by calling the model's create method with the first record in the query results
 
         # Remove the pass statement below and add your implementation there ...
-        pass
+        hotel_room = db.room.select(_id = self.room_id)
+        if len(hotel_room) == 0:
+            return None
+        else:
+            return Booking.create(hotel_room)

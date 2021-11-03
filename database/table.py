@@ -17,7 +17,18 @@ class Table:
         #   - Return a dictionary representing the record that has just been successfully inserted
 
         # Remove the pass statement below and add your implementation there ...
-        pass
+        if not isinstance(params, dict):
+            raise TypeError("This is not a dictionary")
+        if len(params) == 0:
+            raise ValueError("Length cannot be 0")
+        for keys in params:
+            if keys not in self.fields:
+                raise ValueError("keys must be included in field dictionary")
+        self.cursor += 1
+        id_incre = self.cursor
+        params['_id'] = id_incre
+        self.data[id_incre] = params
+        return self.data[id_incre]     
 
     def select(self, **conditions):
         # Requirements:
@@ -28,4 +39,16 @@ class Table:
         #   - Return a list of dictionaries representing records that matched entires in the conditions argument
 
         # Remove the pass statement below and add your implementation there ...
-        pass
+        if not isinstance(conditions, dict):
+            raise TypeError("This is not a dictionary")
+        if len(conditions) == 0:
+            raise ValueError("Length cannot be 0")
+        for keys in conditions:
+            if keys not in self.fields:
+                raise ValueError("keys must be included in field dictionary")
+        arr_list = []
+        for words in self.data.values():
+            for key, value in conditions.items():
+                if words[key] == value:
+                    arr_list.append(words)
+        return arr_list
