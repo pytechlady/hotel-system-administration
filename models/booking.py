@@ -21,6 +21,7 @@ class Booking(Model):
         instance.room_id = record["room_id"]
         instance.name = record["name"]
         instance.paid = record["paid"]
+        return instance
 
     
     def room(self, db):
@@ -35,4 +36,4 @@ class Booking(Model):
         if len(hotel_room) == 0:
             return None
         else:
-            return Booking.create(hotel_room)
+            return Room.create(hotel_room)
